@@ -16,8 +16,62 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="InstaMe" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Edb-5i-kTs">
+                                <rect key="frame" x="20" y="40" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User Name" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZyT-93-O74">
+                                <rect key="frame" x="40" y="80" width="520" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="5Zq-xA-n50"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="l78-X6-aSD">
+                                <rect key="frame" x="40" y="118" width="520" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="D83-dD-4Hm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Bu-vG-PS4">
+                                <rect key="frame" x="266" y="182" width="69" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="69" id="QT1-HZ-N22"/>
+                                    <constraint firstAttribute="height" constant="30" id="kIC-SU-puw"/>
+                                </constraints>
+                                <state key="normal" title="LOGIN">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tT5-YR-1yL"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8Bu-vG-PS4" firstAttribute="centerX" secondItem="l78-X6-aSD" secondAttribute="centerX" id="9KN-tb-Mfe"/>
+                            <constraint firstItem="ZyT-93-O74" firstAttribute="top" secondItem="Edb-5i-kTs" secondAttribute="bottom" constant="19" id="BrB-Mp-ts9"/>
+                            <constraint firstItem="ZyT-93-O74" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="40" id="S3L-NF-tcE"/>
+                            <constraint firstItem="ZyT-93-O74" firstAttribute="centerX" secondItem="Edb-5i-kTs" secondAttribute="centerX" id="djl-je-IFh"/>
+                            <constraint firstItem="Edb-5i-kTs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="iC1-E8-gHW"/>
+                            <constraint firstItem="l78-X6-aSD" firstAttribute="top" secondItem="ZyT-93-O74" secondAttribute="bottom" constant="8" symbolic="YES" id="j2b-j5-Sqt"/>
+                            <constraint firstAttribute="trailing" secondItem="Edb-5i-kTs" secondAttribute="trailing" constant="20" symbolic="YES" id="jJa-kN-ZMr"/>
+                            <constraint firstItem="Edb-5i-kTs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="jQT-Wk-0Zz"/>
+                            <constraint firstItem="8Bu-vG-PS4" firstAttribute="top" secondItem="l78-X6-aSD" secondAttribute="bottom" constant="34" id="jyB-gg-OLc"/>
+                            <constraint firstItem="l78-X6-aSD" firstAttribute="trailing" secondItem="ZyT-93-O74" secondAttribute="trailing" id="uMb-W4-EZ9"/>
+                            <constraint firstItem="l78-X6-aSD" firstAttribute="leading" secondItem="ZyT-93-O74" secondAttribute="leading" id="vq7-hy-gFZ"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="passwordTxt" destination="l78-X6-aSD" id="Ck9-8n-CEo"/>
+                        <outlet property="usernameTxt" destination="ZyT-93-O74" id="pmj-FB-fTH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

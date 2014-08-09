@@ -48,3 +48,15 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 1
 
+// InstagramKit
+#define COCOAPODS_POD_AVAILABLE_InstagramKit
+#define COCOAPODS_VERSION_MAJOR_InstagramKit 3
+#define COCOAPODS_VERSION_MINOR_InstagramKit 1
+#define COCOAPODS_VERSION_PATCH_InstagramKit 1
+
+// MODropAlert
+#define COCOAPODS_POD_AVAILABLE_MODropAlert
+#define COCOAPODS_VERSION_MAJOR_MODropAlert 1
+#define COCOAPODS_VERSION_MINOR_MODropAlert 0
+#define COCOAPODS_VERSION_PATCH_MODropAlert 0
+

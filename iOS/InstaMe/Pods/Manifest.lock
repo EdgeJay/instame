@@ -20,11 +20,18 @@ PODS:
   - AFNetworking/UIKit (2.3.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - InstagramKit (3.1.1):
+    - AFNetworking (~> 2.0)
+  - MODropAlert (1.0.0)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.3.1)
+  - AFNetworking (= 2.3.1)
+  - InstagramKit (= 3.1.1)
+  - MODropAlert (= 1.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
+  InstagramKit: 9ad28b1e68ab0078fdd1ff40825d977f9dfc59c5
+  MODropAlert: b99585c7357aa957831cd3e9ec2eef1d7fdcce53
 
 COCOAPODS: 0.33.1
