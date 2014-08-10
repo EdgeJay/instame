@@ -13,6 +13,7 @@
 #import <ALToastView.h>
 #import "NavigationController.h"
 #import "PhotoViewCell.h"
+#import "PhotoViewController.h"
 
 @interface GalleryViewController () <MODropAlertViewDelegate>
 {
@@ -22,6 +23,7 @@
     InstagramPaginationInfo *currentPaginationInfo;
     NSMutableArray *loadedMedia;
     NSIndexPath *lastItemIndexPath;
+    NSURL *previewImageURL;
 }
 
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *settingsButton;
@@ -33,6 +35,7 @@
 @synthesize settingsButton=_settingsButton;
 
 static NSString * const kSettingsSegueIdentifier = @"settings";
+static NSString * const kShowPhotoSegueIdentifier = @"showPhoto";
 static NSString * const reuseIdentifier = @"PhotoCell";
 static NSInteger const kMaxItemPerPage = 32;
 static NSInteger const kInitialItemsToLoad = 64;
@@ -74,6 +77,8 @@ static CGFloat const kItemSpacing = 1.0f;
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear: animated];
+    
+    previewImageURL = nil;
     
     if (loadedMedia.count == 0)
     {
@@ -160,8 +165,11 @@ static CGFloat const kItemSpacing = 1.0f;
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString: kShowPhotoSegueIdentifier])
+    {
+        PhotoViewController *photoViewController = (PhotoViewController *)segue.destinationViewController;
+        [photoViewController setImageURL: previewImageURL];
+    }
 }
 
 #pragma mark - Wait dialog
@@ -236,34 +244,26 @@ static CGFloat const kItemSpacing = 1.0f;
 
 #pragma mark - UICollectionViewDelegate methods
 
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+-(BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
+{
 	return YES;
 }
-*/
 
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+-(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     return YES;
 }
-*/
 
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [collectionView deselectItemAtIndexPath: indexPath animated: YES];
+    
+    // Get InstagramMedia object for cell
+    InstagramMedia *media = [loadedMedia objectAtIndex: indexPath.item];
+    previewImageURL = media.standardResolutionImageURL;
+    
+    [self performSegueWithIdentifier: kShowPhotoSegueIdentifier sender: self];
 }
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
 
 #pragma mark - UIScrollViewDelegate methods
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate

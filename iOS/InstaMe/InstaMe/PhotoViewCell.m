@@ -18,12 +18,17 @@
     self = [super initWithFrame:frameRect];
     if (self)
     {
-        self.backgroundColor = [UIColor whiteColor];
+        //self.backgroundColor = [UIColor whiteColor];
         
         CGRect rect = CGRectInset(self.bounds, 2.0f, 2.0f);
         _imageView = [[UIImageView alloc] initWithFrame: rect];
         _imageView.backgroundColor = [UIColor darkGrayColor];
         [self addSubview: _imageView];
+        
+        // Set selected background view
+        UIView *selectedBgView = [[UIView alloc] initWithFrame: self.bounds];
+        selectedBgView.backgroundColor = [UIColor whiteColor];
+        self.selectedBackgroundView = selectedBgView;
     }
     
     return self;
