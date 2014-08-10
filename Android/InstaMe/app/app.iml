@@ -63,6 +63,9 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="appcompat-v7-19.1.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />
+    <orderEntry type="library" exported="" name="smoothie-0.1.0" level="project" />
+    <orderEntry type="library" exported="" name="library-2.3" level="project" />
+    <orderEntry type="library" exported="" name="disklrucache-2.0.1" level="project" />
   </component>
 </module>
 

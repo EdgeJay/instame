@@ -21,8 +21,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    // You must install or update the Support Repository through the SDK manager to use this dependency.
-    // You must install or update the Support Repository through the SDK manager to use this dependency.
-    compile 'com.android.support:support-v4:19.+'
     compile 'com.android.support:appcompat-v7:19.+'
+    compile 'org.lucasr.smoothie:smoothie:0.1.0'
+    compile('com.github.chrisbanes.bitmapcache:library:2.3') {
+        exclude(group: 'com.google.android')
+    }
 }

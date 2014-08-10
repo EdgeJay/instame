@@ -3,5 +3,7 @@
 
     <string name="app_name">InstaMe</string>
     <string name="action_settings">Settings</string>
+    <string name="action_logout">Sign Out</string>
+    <string name="title_activity_gallery">Your Feed</string>
 
 </resources>
