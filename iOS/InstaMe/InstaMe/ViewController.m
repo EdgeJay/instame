@@ -7,60 +7,99 @@
 //
 
 #import "ViewController.h"
+#import "Global.h"
 #import <InstagramKit.h>
+#import <MBHUDView.h>
 #import <MODropAlertView.h>
 
-@interface ViewController ()
+static NSString * const kLoginSegueIdentifier = @"login";
+static NSString * const kGallerySegueIdentifier = @"gallery";
 
-@property (nonatomic, strong) IBOutlet UITextField *usernameTxt;
-@property (nonatomic, strong) IBOutlet UITextField *passwordTxt;
+@interface ViewController ()
+{
+    MBHUDView *hudView;
+}
 
 @end
 
 @implementation ViewController
 
-@synthesize usernameTxt=_usernameTxt, passwordTxt=_passwordTxt;
-
-- (void)viewDidLoad
+-(void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-    NSDictionary *config = [InstagramEngine sharedEngineConfiguration];
-    
 }
 
-- (void)didReceiveMemoryWarning
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear: animated];
+    
+    if (![self verifyLogin])
+    {
+        // Goto login view
+        [self performSegueWithIdentifier: kLoginSegueIdentifier sender: self];
+    }
+    else
+    {
+        [self displayWaitDialog];
+        [self fetchUserDetails];
+    }
+}
+
+-(void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)onLogin:(id)sender
+-(BOOL)verifyLogin
 {
-    if ([self verifyLoginFields])
-    {
-        
-    }
+    return ([InstagramEngine sharedEngine].accessToken != nil);
 }
 
--(BOOL)verifyLoginFields
+-(void)fetchUserDetails
 {
-    NSString *username = self.usernameTxt.text;
-    NSString *password = self.passwordTxt.text;
-    
-    if ((username != nil && [username stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]].length > 0) &&
-        (password != nil && [password stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]].length > 0))
+    [[InstagramEngine sharedEngine] getSelfUserDetailsWithSuccess: ^(InstagramUser *userDetail) {
+        
+        [[Global sharedInstance] setCurrentUser: userDetail];
+        
+        [self dismissWaitDialog];
+        
+        // Goto gallery
+        [self performSegueWithIdentifier: kGallerySegueIdentifier sender: self];
+        
+    } failure: ^(NSError *error) {
+        
+        [self dismissWaitDialog];
+        //TODO display error message here
+    }];
+}
+
+-(void)displayWaitDialog
+{
+    if ([MBHUDView alertIsVisible])
     {
-        return YES;
+        return;
     }
     
-    MODropAlertView *alertView = [[MODropAlertView alloc] initDropAlertWithTitle: @"Login"
-                                                                     description: @"Oops, seemed that you missed out some fields. Please fill in all of them."
-                                                                   okButtonTitle: @"OK"];
-    [alertView show];
-    
-    return NO;
+    hudView = [[MBHUDView alloc] init];
+    hudView.bodyText = @"";
+    hudView.hudType = MBAlertViewHUDTypeActivityIndicator;
+    hudView.hudHideDelay = 9999.0f;
+    hudView.backgroundColor = [UIColor colorWithWhite: 0.0 alpha: 0.9];
+    [hudView addToDisplayQueue];
+}
+
+-(void)dismissWaitDialog
+{
+    [hudView dismiss];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString: kLoginSegueIdentifier])
+    {
+    }
 }
 
 @end
