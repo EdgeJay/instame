@@ -25,6 +25,10 @@
     NSMutableArray *loadedMedia;
     NSIndexPath *lastItemIndexPath;
     InstagramMedia *previewPhotoMedia;
+    
+    // Photo column settings
+    NSInteger numOfColumns;
+    BOOL numOfColumnsChanged;
 }
 
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *settingsButton;
@@ -47,22 +51,12 @@ static CGFloat const kItemSpacing = 1.0f;
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
     // Register cell classes
     [self.collectionView registerClass: [PhotoViewCell class] forCellWithReuseIdentifier: reuseIdentifier];
     
     // Do any additional setup after loading the view.
     
     loadedMedia = [[NSMutableArray alloc] initWithCapacity: kMaxItemPerPage];
-    
-    // Tweak layout settings
-    [(UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout setMinimumLineSpacing: kItemSpacing];
-    [(UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout setMinimumInteritemSpacing: kItemSpacing];
-    // Calculate cell size
-    CGFloat cellSize = (self.collectionView.bounds.size.width - (kItemSpacing * (kNumberOfColumns - 1))) / kNumberOfColumns;
-    [(UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout setItemSize: CGSizeMake(cellSize, cellSize)];
     
     // Add bar button item
     UIButton *iconButton = [UIButton buttonWithType: UIButtonTypeCustom];
@@ -88,6 +82,9 @@ static CGFloat const kItemSpacing = 1.0f;
         return;
     }
     
+    // Fetch display settings
+    [self updateDisplaySettings];
+    
     if (loadedMedia.count == 0)
     {
         [self displayWaitDialog];
@@ -95,12 +92,51 @@ static CGFloat const kItemSpacing = 1.0f;
         // Fetch user photos
         [self fetchUserPhotos];
     }
+    else
+    {
+        if (numOfColumnsChanged)
+        {
+            numOfColumnsChanged = NO;
+            [self.collectionView reloadData];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)updateDisplaySettings
+{
+    NSInteger oldNumOfColumns = numOfColumns;
+    
+    // Check if default settings are saved
+    if ([[Global sharedInstance] getNumberOfPhotoColumns] == 0)
+    {
+        [[Global sharedInstance] saveNumberOfPhotoColumns: kNumberOfColumns];
+        numOfColumns = kNumberOfColumns;
+    }
+    else
+    {
+        numOfColumns = [[Global sharedInstance] getNumberOfPhotoColumns];
+        numOfColumnsChanged = (oldNumOfColumns != numOfColumns);
+    }
+    
+    // Tweak layout settings
+    [(UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout setMinimumLineSpacing: kItemSpacing];
+    [(UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout setMinimumInteritemSpacing: kItemSpacing];
+    // Calculate cell size
+    CGFloat cellSize = [self getPhotoCellSize];
+    [(UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout setItemSize: CGSizeMake(cellSize, cellSize)];
+}
+
+-(CGFloat)getPhotoCellSize
+{
+    // Calculate cell size
+    CGFloat cellSize = (self.collectionView.bounds.size.width - (kItemSpacing * (numOfColumns - 1))) / numOfColumns;
+    return cellSize;
 }
 
 #pragma mark - Photo fetching methods
@@ -242,6 +278,11 @@ static CGFloat const kItemSpacing = 1.0f;
 {
     PhotoViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier: reuseIdentifier
                                                                     forIndexPath: indexPath];
+    
+    CGFloat cellSize = [self getPhotoCellSize];
+    CGRect frame = cell.frame;
+    frame.size = CGSizeMake(cellSize, cellSize);
+    cell.frame = frame;
     
     // Get InstagramMedia object for cell
     InstagramMedia *media = [loadedMedia objectAtIndex: indexPath.item];

@@ -21,4 +21,7 @@
 -(void)removeUserAccessToken;
 -(void)clearUserSession;
 
+-(void)saveNumberOfPhotoColumns:(NSInteger)cols;
+-(NSInteger)getNumberOfPhotoColumns;
+
 @end

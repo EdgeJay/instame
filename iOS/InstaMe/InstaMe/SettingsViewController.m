@@ -11,6 +11,7 @@
 #import "Global.h"
 
 static NSString * const kLoginSegueIdentifier = @"returnToLogin";
+static NSString * const kChangeColumnsSegueIdentifier = @"changeColumns";
 static NSString * const photoSettingCellReuseIdentifier = @"PhotoSettingCell";
 static NSString * const userSettingCellReuseIdentifier = @"UserSettingCell";
 static NSInteger const kSettingsPhotoSection = 0;
@@ -31,6 +32,12 @@ static NSInteger const kSettingsUserSection = 1;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear: animated];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,6 +77,9 @@ static NSInteger const kSettingsUserSection = 1;
     
     switch (section)
     {
+        case kSettingsPhotoSection:
+            return 1;
+            
         case kSettingsUserSection:
             
             if (user != nil)
@@ -111,6 +121,14 @@ static NSInteger const kSettingsUserSection = 1;
     {
         cell = [tableView dequeueReusableCellWithIdentifier: photoSettingCellReuseIdentifier
                                                forIndexPath: indexPath];
+        
+        if (indexPath.item == 0)
+        {
+            NSInteger cols = [[Global sharedInstance] getNumberOfPhotoColumns];
+            
+            [cell.textLabel setText: [NSString stringWithFormat: @"%d columns", cols]];
+            [cell.detailTextLabel setText: @"Number of columns used to display photos"];
+        }
     }
     else if (indexPath.section == kSettingsUserSection)
     {
@@ -170,7 +188,14 @@ static NSInteger const kSettingsUserSection = 1;
     
     InstagramUser *user = [Global sharedInstance].currentUser;
     
-    if (indexPath.section == kSettingsUserSection)
+    if (indexPath.section == kSettingsPhotoSection)
+    {
+        if (indexPath.item == 0)
+        {
+            [self performSegueWithIdentifier: kChangeColumnsSegueIdentifier sender: self];
+        }
+    }
+    else if (indexPath.section == kSettingsUserSection)
     {
         if (user != nil)
         {

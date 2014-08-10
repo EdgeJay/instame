@@ -44,4 +44,15 @@
     }
 }
 
+-(void)setFrame:(CGRect)frame
+{
+    [super setFrame: frame];
+    
+    if (_imageView != nil)
+    {
+        CGRect rect = CGRectInset(self.bounds, 2.0f, 2.0f);
+        _imageView.frame = rect;
+    }
+}
+
 @end

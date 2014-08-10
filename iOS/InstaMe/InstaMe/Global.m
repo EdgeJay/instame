@@ -10,6 +10,7 @@
 #import <InstagramKit.h>
 
 static NSString * const kUserAccessTokenKey = @"InstagramUserAccessToken";
+static NSString * const kNumberOfPhotoColumnsKey = @"NumberOfPhotoColumns";
 
 @implementation Global
 
@@ -59,6 +60,24 @@ static NSString * const kUserAccessTokenKey = @"InstagramUserAccessToken";
     }
     
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(void)saveNumberOfPhotoColumns:(NSInteger)cols
+{
+    [[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithInteger: cols] forKey: kNumberOfPhotoColumnsKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(NSInteger)getNumberOfPhotoColumns
+{
+    NSNumber *cols = (NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey: kNumberOfPhotoColumnsKey];
+    
+    if (cols != nil)
+    {
+        return [cols integerValue];
+    }
+    
+    return 0;
 }
 
 @end
