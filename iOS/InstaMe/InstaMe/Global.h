@@ -19,5 +19,6 @@
 -(void)saveUserAccessToken:(NSString *)accessToken;
 -(NSString *)getUserAccessToken;
 -(void)removeUserAccessToken;
+-(void)clearUserSession;
 
 @end

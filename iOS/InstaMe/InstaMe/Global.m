@@ -33,6 +33,7 @@ static NSString * const kUserAccessTokenKey = @"InstagramUserAccessToken";
 -(void)saveUserAccessToken:(NSString *)accessToken
 {
     [[NSUserDefaults standardUserDefaults] setObject: accessToken forKey: kUserAccessTokenKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(NSString *)getUserAccessToken
@@ -43,6 +44,21 @@ static NSString * const kUserAccessTokenKey = @"InstagramUserAccessToken";
 -(void)removeUserAccessToken
 {
     [self saveUserAccessToken: nil];
+}
+
+-(void)clearUserSession
+{
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    
+    // Clear all cookies
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in storage.cookies)
+    {
+        [storage deleteCookie: cookie];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

@@ -14,6 +14,7 @@
 #import "NavigationController.h"
 #import "PhotoViewCell.h"
 #import "PhotoViewController.h"
+#import "Global.h"
 
 @interface GalleryViewController () <MODropAlertViewDelegate>
 {
@@ -79,6 +80,13 @@ static CGFloat const kItemSpacing = 1.0f;
     [super viewDidAppear: animated];
     
     previewPhotoMedia = nil;
+    
+    // Make sure user is logged in
+    if ([Global sharedInstance].currentUser == nil)
+    {
+        [(NavigationController *)self.navigationController exit];
+        return;
+    }
     
     if (loadedMedia.count == 0)
     {

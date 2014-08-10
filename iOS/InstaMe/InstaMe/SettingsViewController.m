@@ -42,9 +42,19 @@ static NSInteger const kSettingsUserSection = 1;
 #pragma mark - Logout
 -(void)performLogout
 {
+    [InstagramEngine sharedEngine].accessToken = nil;
     [[Global sharedInstance] removeUserAccessToken];
     [[Global sharedInstance] setCurrentUser: nil];
+    [[Global sharedInstance] clearUserSession];
+    
     NSLog(@"Logged out");
+    
+    [self.tableView reloadData];
+}
+
+-(void)performLogin
+{
+    NSLog(@"do login");
 }
 
 #pragma mark - Table view data source
@@ -56,10 +66,22 @@ static NSInteger const kSettingsUserSection = 1;
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    InstagramUser *user = [Global sharedInstance].currentUser;
+    
     switch (section)
     {
         case kSettingsUserSection:
-            return 2;
+            
+            if (user != nil)
+            {
+                return 2;
+            }
+            else
+            {
+                return 1;
+            }
+            
+            break;
             
         default:
             return 0;
@@ -95,15 +117,28 @@ static NSInteger const kSettingsUserSection = 1;
         cell = [tableView dequeueReusableCellWithIdentifier: userSettingCellReuseIdentifier
                                                forIndexPath: indexPath];
         
-        if (indexPath.item == 0)
+        InstagramUser *user = [Global sharedInstance].currentUser;
+        
+        if (user != nil)
         {
-            [cell.textLabel setText: [Global sharedInstance].currentUser.fullName];
-            [cell.detailTextLabel setText: @"Your Account Name"];
+            if (indexPath.item == 0)
+            {
+                [cell.textLabel setText: user.fullName];
+                [cell.detailTextLabel setText: @"Your Account Name"];
+            }
+            else if (indexPath.item == 1)
+            {
+                [cell.textLabel setText: @"Sign Out"];
+                [cell.detailTextLabel setText: @"Tap here to sign out"];
+            }
         }
-        else if (indexPath.item == 1)
+        else
         {
-            [cell.textLabel setText: @"Sign Out"];
-            [cell.detailTextLabel setText: @"Tap here to sign out"];
+            if (indexPath.item == 0)
+            {
+                [cell.textLabel setText: @"Sign In"];
+                [cell.detailTextLabel setText: @"Tap here to sign in"];
+            }
         }
     }
     
@@ -113,11 +148,16 @@ static NSInteger const kSettingsUserSection = 1;
 #pragma mark - UITableViewDelegate
 -(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    InstagramUser *user = [Global sharedInstance].currentUser;
+    
     if (indexPath.section == kSettingsUserSection)
     {
-        if (indexPath.item == 0)
+        if (user != nil)
         {
-            return NO;
+            if (indexPath.item == 0)
+            {
+                return NO;
+            }
         }
     }
     
@@ -128,11 +168,23 @@ static NSInteger const kSettingsUserSection = 1;
 {
     [tableView deselectRowAtIndexPath: indexPath animated: YES];
     
+    InstagramUser *user = [Global sharedInstance].currentUser;
+    
     if (indexPath.section == kSettingsUserSection)
     {
-        if (indexPath.item == 1)
+        if (user != nil)
         {
-            [self performLogout];
+            if (indexPath.item == 1)
+            {
+                [self performLogout];
+            }
+        }
+        else
+        {
+            if (indexPath.item == 0)
+            {
+                [self performLogin];
+            }
         }
     }
 }
