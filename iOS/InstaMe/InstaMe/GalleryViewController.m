@@ -15,6 +15,7 @@
 #import "PhotoViewCell.h"
 #import "PhotoViewController.h"
 #import "Global.h"
+#import "UIScrollView+SpiralPullToRefresh.h"
 
 @interface GalleryViewController () <MODropAlertViewDelegate>
 {
@@ -55,6 +56,17 @@ static CGFloat const kItemSpacing = 1.0f;
     [self.collectionView registerClass: [PhotoViewCell class] forCellWithReuseIdentifier: reuseIdentifier];
     
     // Do any additional setup after loading the view.
+    
+    __typeof (&*self) __weak weakSelf = self;
+    [self.collectionView addPullToRefreshWithActionHandler: ^{
+        
+        int64_t delayInSeconds = 1.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [weakSelf refreshTriggered];
+        });
+    }];
+    self.collectionView.pullToRefreshController.waitingAnimation = SpiralPullToRefreshWaitAnimationLinear;
     
     loadedMedia = [[NSMutableArray alloc] initWithCapacity: kMaxItemPerPage];
     
@@ -149,6 +161,8 @@ static CGFloat const kItemSpacing = 1.0f;
                                                      
                                                      [self dismissWaitDialog];
                                                      
+                                                     [self.collectionView.pullToRefreshController didFinishRefresh];
+                                                     
                                                      currentPaginationInfo = paginationInfo;
                                                      
                                                      [self addMorePhotos: media];
@@ -161,6 +175,7 @@ static CGFloat const kItemSpacing = 1.0f;
                                                      
                                                      // Something went wrong, need to display error
                                                      [self dismissWaitDialog];
+                                                     [self.collectionView.pullToRefreshController didFinishRefresh];
                                                      [self displayFetchPhotosErrorDialog];
                                                  }];
 }
@@ -197,6 +212,21 @@ static CGFloat const kItemSpacing = 1.0f;
         
         [self fetchUserPhotos];
     }
+}
+
+-(void)refreshTriggered
+{
+    NSLog(@"refresh triggered!");
+    [self performFullRefresh];
+}
+
+-(void)performFullRefresh
+{
+    loadedMedia = [[NSMutableArray alloc] initWithCapacity: kMaxItemPerPage];
+    currentPaginationInfo = nil;
+    [self.collectionView reloadData];
+    
+    [self fetchUserPhotos];
 }
 
 #pragma mark - Navigation

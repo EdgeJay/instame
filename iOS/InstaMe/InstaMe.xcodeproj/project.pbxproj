@@ -23,6 +23,7 @@
 		32CE90F3199758A3006EBEF2 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CE90F2199758A3006EBEF2 /* NavigationController.m */; };
 		32CE90F619975C7B006EBEF2 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CE90F519975C7B006EBEF2 /* PhotoViewController.m */; };
 		32CE90FC199793A7006EBEF2 /* ChangeColumnsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CE90FB199793A7006EBEF2 /* ChangeColumnsViewController.m */; };
+		32CE91001997B0EA006EBEF2 /* UIScrollView+SpiralPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CE90FF1997B0EA006EBEF2 /* UIScrollView+SpiralPullToRefresh.m */; };
 		32DE694F19963272005445DA /* InstagramKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32DE694E19963272005445DA /* InstagramKit.plist */; };
 		8B8405F4AD27424DB6E3DB3B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0703BD23A0E04DF19524BA10 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -69,6 +70,8 @@
 		32CE90F519975C7B006EBEF2 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 		32CE90FA199793A7006EBEF2 /* ChangeColumnsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeColumnsViewController.h; sourceTree = "<group>"; };
 		32CE90FB199793A7006EBEF2 /* ChangeColumnsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeColumnsViewController.m; sourceTree = "<group>"; };
+		32CE90FE1997B0EA006EBEF2 /* UIScrollView+SpiralPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SpiralPullToRefresh.h"; sourceTree = "<group>"; };
+		32CE90FF1997B0EA006EBEF2 /* UIScrollView+SpiralPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SpiralPullToRefresh.m"; sourceTree = "<group>"; };
 		32DE694E19963272005445DA /* InstagramKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InstagramKit.plist; sourceTree = "<group>"; };
 		E7DA7A9E3DA04C75AC707E8B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,6 +118,7 @@
 		32B32623199459D600121A50 /* InstaMe */ = {
 			isa = PBXGroup;
 			children = (
+				32CE90FD1997B0EA006EBEF2 /* Spiral Pull */,
 				32CE90E619972237006EBEF2 /* assets */,
 				32B32628199459D700121A50 /* AppDelegate.h */,
 				32B32629199459D700121A50 /* AppDelegate.m */,
@@ -177,6 +181,15 @@
 				32CE90E91997250F006EBEF2 /* icon_settings_selected.png */,
 			);
 			path = assets;
+			sourceTree = "<group>";
+		};
+		32CE90FD1997B0EA006EBEF2 /* Spiral Pull */ = {
+			isa = PBXGroup;
+			children = (
+				32CE90FE1997B0EA006EBEF2 /* UIScrollView+SpiralPullToRefresh.h */,
+				32CE90FF1997B0EA006EBEF2 /* UIScrollView+SpiralPullToRefresh.m */,
+			);
+			path = "Spiral Pull";
 			sourceTree = "<group>";
 		};
 		718A562ECA2F439A8B42CAE3 /* Frameworks */ = {
@@ -326,6 +339,7 @@
 			files = (
 				32A873FD1996737400764F76 /* LoginViewController.m in Sources */,
 				32B3262D199459D700121A50 /* ViewController.m in Sources */,
+				32CE91001997B0EA006EBEF2 /* UIScrollView+SpiralPullToRefresh.m in Sources */,
 				32822353199683C30052C517 /* Global.m in Sources */,
 				32CE90F3199758A3006EBEF2 /* NavigationController.m in Sources */,
 				32CE90ED19972B4D006EBEF2 /* SettingsViewController.m in Sources */,

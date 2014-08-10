@@ -81,7 +81,7 @@
             <objects>
                 <collectionViewController id="eCn-vH-4dr" customClass="GalleryViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="RVX-CG-AIZ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3q7-eu-mI9">
                             <size key="itemSize" width="50" height="50"/>
@@ -105,6 +105,7 @@
                             <outlet property="delegate" destination="eCn-vH-4dr" id="JJo-lI-dtB"/>
                         </connections>
                     </collectionView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Your Feed" id="Nch-Xh-yf3">
                         <barButtonItem key="backBarButtonItem" title="Back" id="n4y-J1-3Dh"/>
                         <barButtonItem key="rightBarButtonItem" title="Item" width="20" style="plain" id="zi3-Yb-18g"/>
