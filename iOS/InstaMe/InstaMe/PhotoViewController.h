@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <InstagramKit.h>
 
 @interface PhotoViewController : UIViewController
 
-@property (nonatomic, strong) NSURL *imageURL;
+@property (nonatomic, strong) InstagramMedia *photoData;
 
 @end

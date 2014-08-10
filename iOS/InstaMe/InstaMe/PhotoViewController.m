@@ -16,12 +16,15 @@
 }
 
 @property (nonatomic, strong) IBOutlet UIImageView *imageView;
+@property (nonatomic, strong) IBOutlet UILabel *captionLabel;
+@property (nonatomic, strong) IBOutlet UILabel *fullNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *likesLabel;
 
 @end
 
 @implementation PhotoViewController
 
-@synthesize imageURL=_imageURL;
+@synthesize photoData=_photoData;
 
 -(void)viewDidLoad
 {
@@ -34,17 +37,26 @@
 {
     [super viewWillAppear: animated];
     
-    if (self.imageURL == nil)
+    if (self.photoData == nil)
     {
         return;
     }
     
-    //[self displayWaitDialog];
+    // Formatter for number
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.usesGroupingSeparator = YES;
+    formatter.groupingSeparator = @",";
+    
+    self.captionLabel.text = self.photoData.caption.text;
+    self.fullNameLabel.text = [NSString stringWithFormat: @"Taken by %@", self.photoData.user.fullName];
+    self.likesLabel.text = [NSString stringWithFormat: @"%@ likes", [formatter stringFromNumber: [NSNumber numberWithInteger: self.photoData.likesCount]]];
+    
+    [self displayWaitDialog];
     
     __weak PhotoViewController *viewController = self;
-    NSLog(@"%@", self.imageURL);
+    NSLog(@"%@", self.photoData.standardResolutionImageURL);
     
-    [self.imageView setImageWithURLRequest: [NSURLRequest requestWithURL: self.imageURL]
+    [self.imageView setImageWithURLRequest: [NSURLRequest requestWithURL: self.photoData.standardResolutionImageURL]
                           placeholderImage: nil
                                    success: ^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                        
@@ -63,7 +75,7 @@
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear: animated];
-    self.imageURL = nil;
+    self.photoData = nil;
 }
 
 -(void)didReceiveMemoryWarning

@@ -23,7 +23,7 @@
     InstagramPaginationInfo *currentPaginationInfo;
     NSMutableArray *loadedMedia;
     NSIndexPath *lastItemIndexPath;
-    NSURL *previewImageURL;
+    InstagramMedia *previewPhotoMedia;
 }
 
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *settingsButton;
@@ -78,7 +78,7 @@ static CGFloat const kItemSpacing = 1.0f;
 {
     [super viewDidAppear: animated];
     
-    previewImageURL = nil;
+    previewPhotoMedia = nil;
     
     if (loadedMedia.count == 0)
     {
@@ -168,7 +168,7 @@ static CGFloat const kItemSpacing = 1.0f;
     if ([segue.identifier isEqualToString: kShowPhotoSegueIdentifier])
     {
         PhotoViewController *photoViewController = (PhotoViewController *)segue.destinationViewController;
-        [photoViewController setImageURL: previewImageURL];
+        [photoViewController setPhotoData: previewPhotoMedia];
     }
 }
 
@@ -259,10 +259,12 @@ static CGFloat const kItemSpacing = 1.0f;
     [collectionView deselectItemAtIndexPath: indexPath animated: YES];
     
     // Get InstagramMedia object for cell
-    InstagramMedia *media = [loadedMedia objectAtIndex: indexPath.item];
-    previewImageURL = media.standardResolutionImageURL;
+    previewPhotoMedia = [loadedMedia objectAtIndex: indexPath.item];
     
-    [self performSegueWithIdentifier: kShowPhotoSegueIdentifier sender: self];
+    if (previewPhotoMedia != nil)
+    {
+        [self performSegueWithIdentifier: kShowPhotoSegueIdentifier sender: self];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate methods
