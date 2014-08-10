@@ -16,4 +16,8 @@
 
 @property (nonatomic, strong) InstagramUser *currentUser;
 
+-(void)saveUserAccessToken:(NSString *)accessToken;
+-(NSString *)getUserAccessToken;
+-(void)removeUserAccessToken;
+
 @end

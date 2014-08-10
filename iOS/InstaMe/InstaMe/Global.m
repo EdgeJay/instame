@@ -9,6 +9,7 @@
 #import "Global.h"
 #import <InstagramKit.h>
 
+static NSString * const kUserAccessTokenKey = @"InstagramUserAccessToken";
 
 @implementation Global
 
@@ -27,6 +28,21 @@
     });
     
     return instance;
+}
+
+-(void)saveUserAccessToken:(NSString *)accessToken
+{
+    [[NSUserDefaults standardUserDefaults] setObject: accessToken forKey: kUserAccessTokenKey];
+}
+
+-(NSString *)getUserAccessToken
+{
+    return (NSString *)[[NSUserDefaults standardUserDefaults] objectForKey: kUserAccessTokenKey];
+}
+
+-(void)removeUserAccessToken
+{
+    [self saveUserAccessToken: nil];
 }
 
 @end

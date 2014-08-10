@@ -9,14 +9,15 @@
 #import "GalleryViewController.h"
 #import <InstagramKit.h>
 #import <MBHUDView.h>
+#import <MODropAlertView.h>
 #import <ALToastView.h>
+#import "NavigationController.h"
 #import "PhotoViewCell.h"
 
-static NSString * const kSettingsSegueIdentifier = @"settings";
-
-@interface GalleryViewController ()
+@interface GalleryViewController () <MODropAlertViewDelegate>
 {
     MBHUDView *hudView;
+    MODropAlertView *fetchPhotoAlert;
     
     InstagramPaginationInfo *currentPaginationInfo;
     NSMutableArray *loadedMedia;
@@ -31,6 +32,7 @@ static NSString * const kSettingsSegueIdentifier = @"settings";
 
 @synthesize settingsButton=_settingsButton;
 
+static NSString * const kSettingsSegueIdentifier = @"settings";
 static NSString * const reuseIdentifier = @"PhotoCell";
 static NSInteger const kMaxItemPerPage = 32;
 static NSInteger const kInitialItemsToLoad = 64;
@@ -108,7 +110,9 @@ static CGFloat const kItemSpacing = 1.0f;
                                                      
                                                  } failure: ^(NSError *error) {
                                                      
+                                                     // Something went wrong, need to display error
                                                      [self dismissWaitDialog];
+                                                     [self displayFetchPhotosErrorDialog];
                                                  }];
 }
 
@@ -180,6 +184,28 @@ static CGFloat const kItemSpacing = 1.0f;
 -(void)dismissWaitDialog
 {
     [hudView dismiss];
+}
+
+#pragma mark - Error dialogs
+
+-(void)displayFetchPhotosErrorDialog
+{
+    fetchPhotoAlert = [[MODropAlertView alloc] initDropAlertWithTitle: @"Error"
+                                                          description: @"Oops, an error occurred while fetching your photos. You will now be redirected to sign in screen."
+                                                        okButtonTitle: @"OK"];
+    fetchPhotoAlert.delegate = self;
+    [fetchPhotoAlert show];
+}
+
+#pragma mark - MODropAlertViewDelegate methods
+
+-(void)alertViewPressButton:(MODropAlertView *)alertView buttonType:(DropAlertButtonType)buttonType
+{
+    if (alertView == fetchPhotoAlert && buttonType == DropAlertButtonOK)
+    {
+        [alertView dismiss];
+        [(NavigationController *)self.navigationController exit];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource methods

@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import <InstagramKit.h>
 #import <MBHUDView.h>
+#import "Global.h"
 
 @interface LoginViewController () <UIWebViewDelegate>
 {
@@ -58,6 +59,7 @@
 
 -(void)performLogin
 {
+    // If cannot find, then load login web view
     NSDictionary *config = [InstagramEngine sharedEngineConfiguration];
     NSURL *url = [NSURL URLWithString: [NSString stringWithFormat: @"%@?client_id=%@&redirect_uri=%@&response_type=token",
                                         config[kInstagramKitAuthorizationUrlConfigurationKey],
@@ -87,6 +89,12 @@
     [hudView dismiss];
 }
 
+-(void)exit
+{
+    UIViewController *viewController = self.presentingViewController;
+    [viewController dismissViewControllerAnimated: YES completion: nil];
+}
+
 #pragma mark - UIWebViewDelegate methods
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
 navigationType:(UIWebViewNavigationType)navigationType
@@ -101,10 +109,11 @@ navigationType:(UIWebViewNavigationType)navigationType
         {
             NSString *accessToken = [components lastObject];
             [[InstagramEngine sharedEngine] setAccessToken: accessToken];
+            [[Global sharedInstance] saveUserAccessToken: accessToken];
+            NSLog(@"Got access token: %@", accessToken);
             
             // Exit here
-            UIViewController *viewController = self.presentingViewController;
-            [viewController dismissViewControllerAnimated: YES completion: nil];
+            [self exit];
         }
         
         return NO;

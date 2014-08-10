@@ -20,6 +20,7 @@
 		32CE90E819972237006EBEF2 /* icon_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 32CE90E719972237006EBEF2 /* icon_settings.png */; };
 		32CE90EA1997250F006EBEF2 /* icon_settings_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 32CE90E91997250F006EBEF2 /* icon_settings_selected.png */; };
 		32CE90ED19972B4D006EBEF2 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CE90EC19972B4D006EBEF2 /* SettingsViewController.m */; };
+		32CE90F3199758A3006EBEF2 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CE90F2199758A3006EBEF2 /* NavigationController.m */; };
 		32DE694F19963272005445DA /* InstagramKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32DE694E19963272005445DA /* InstagramKit.plist */; };
 		8B8405F4AD27424DB6E3DB3B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0703BD23A0E04DF19524BA10 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -60,6 +61,8 @@
 		32CE90E91997250F006EBEF2 /* icon_settings_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_settings_selected.png; sourceTree = "<group>"; };
 		32CE90EB19972B4D006EBEF2 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		32CE90EC19972B4D006EBEF2 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		32CE90F1199758A3006EBEF2 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
+		32CE90F2199758A3006EBEF2 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		32DE694E19963272005445DA /* InstagramKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InstagramKit.plist; sourceTree = "<group>"; };
 		E7DA7A9E3DA04C75AC707E8B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,6 +116,8 @@
 				32822352199683C30052C517 /* Global.m */,
 				32B3262B199459D700121A50 /* ViewController.h */,
 				32B3262C199459D700121A50 /* ViewController.m */,
+				32CE90F1199758A3006EBEF2 /* NavigationController.h */,
+				32CE90F2199758A3006EBEF2 /* NavigationController.m */,
 				32A873FB1996737400764F76 /* LoginViewController.h */,
 				32A873FC1996737400764F76 /* LoginViewController.m */,
 				3282235719969A260052C517 /* GalleryViewController.h */,
@@ -312,6 +317,7 @@
 				32A873FD1996737400764F76 /* LoginViewController.m in Sources */,
 				32B3262D199459D700121A50 /* ViewController.m in Sources */,
 				32822353199683C30052C517 /* Global.m in Sources */,
+				32CE90F3199758A3006EBEF2 /* NavigationController.m in Sources */,
 				32CE90ED19972B4D006EBEF2 /* SettingsViewController.m in Sources */,
 				32B3262A199459D700121A50 /* AppDelegate.m in Sources */,
 				32B32627199459D700121A50 /* main.m in Sources */,

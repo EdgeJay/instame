@@ -54,7 +54,22 @@ static NSString * const kGallerySegueIdentifier = @"gallery";
 
 -(BOOL)verifyLogin
 {
-    return ([InstagramEngine sharedEngine].accessToken != nil);
+    if ([InstagramEngine sharedEngine].accessToken != nil)
+    {
+        return YES;
+    }
+    else
+    {
+        NSString *accessToken = [[Global sharedInstance] getUserAccessToken];
+        if (accessToken != nil)
+        {
+            NSLog(@"Got access token from user defaults: %@", accessToken);
+            [InstagramEngine sharedEngine].accessToken = accessToken;
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 -(void)fetchUserDetails
@@ -71,7 +86,9 @@ static NSString * const kGallerySegueIdentifier = @"gallery";
     } failure: ^(NSError *error) {
         
         [self dismissWaitDialog];
-        //TODO display error message here
+        
+        // Something went wrong with fetching user details, need to re-login
+        [self performSegueWithIdentifier: kLoginSegueIdentifier sender: self];
     }];
 }
 
