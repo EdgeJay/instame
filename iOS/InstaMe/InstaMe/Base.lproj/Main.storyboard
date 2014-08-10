@@ -104,11 +104,45 @@
                             <outlet property="delegate" destination="eCn-vH-4dr" id="JJo-lI-dtB"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Your Photos" id="Nch-Xh-yf3"/>
+                    <navigationItem key="navigationItem" title="Your Photos" id="Nch-Xh-yf3">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="n4y-J1-3Dh"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" width="20" style="plain" id="zi3-Yb-18g"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="settingsButton" destination="zi3-Yb-18g" id="RLg-Uj-Bmh"/>
+                        <segue destination="iBl-fc-xtq" kind="show" identifier="settings" id="eez-nJ-fOT"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v0g-Bt-z41" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1339" y="940"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="bjD-QS-S75">
+            <objects>
+                <tableViewController id="iBl-fc-xtq" customClass="SettingsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ePo-zq-Suk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KQI-dl-iRk">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KQI-dl-iRk" id="nDh-ks-rcH">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="iBl-fc-xtq" id="ZoG-qs-pB0"/>
+                            <outlet property="delegate" destination="iBl-fc-xtq" id="00a-6V-4F6"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Settings" id="dot-Af-TwQ"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="12D-Lg-GRJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2103" y="940"/>
         </scene>
     </scenes>
 </document>

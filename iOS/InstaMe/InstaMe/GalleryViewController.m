@@ -12,19 +12,24 @@
 #import <ALToastView.h>
 #import "PhotoViewCell.h"
 
+static NSString * const kSettingsSegueIdentifier = @"settings";
+
 @interface GalleryViewController ()
 {
     MBHUDView *hudView;
-    UIBarButtonItem *settingsButton;
     
     InstagramPaginationInfo *currentPaginationInfo;
     NSMutableArray *loadedMedia;
     NSIndexPath *lastItemIndexPath;
 }
 
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *settingsButton;
+
 @end
 
 @implementation GalleryViewController
+
+@synthesize settingsButton=_settingsButton;
 
 static NSString * const reuseIdentifier = @"PhotoCell";
 static NSInteger const kMaxItemPerPage = 32;
@@ -60,30 +65,27 @@ static CGFloat const kItemSpacing = 1.0f;
     [iconButton setImage: [UIImage imageNamed: @"icon_settings_selected.png"] forState: UIControlStateHighlighted];
     [iconButton setImage: [UIImage imageNamed: @"icon_settings_selected.png"] forState: UIControlStateSelected];
     [iconButton addTarget: self action: @selector(onSettings:) forControlEvents: UIControlEventTouchUpInside];
-    settingsButton = [[UIBarButtonItem alloc] initWithCustomView: iconButton];
-    [self.navigationItem setRightBarButtonItem: settingsButton];
+    [self.settingsButton setCustomView: iconButton];
+    [self.navigationItem setRightBarButtonItem: self.settingsButton];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear: animated];
     
-    [self displayWaitDialog];
+    if (loadedMedia.count == 0)
+    {
+        [self displayWaitDialog];
     
-    // Fetch user photos
-    [self fetchUserPhotos];
+        // Fetch user photos
+        [self fetchUserPhotos];
+    }
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - UI components handler methods
--(void)onSettings:(id)sender
-{
-    NSLog(@"settings!");
 }
 
 #pragma mark - Photo fetching methods
@@ -144,15 +146,19 @@ static CGFloat const kItemSpacing = 1.0f;
     }
 }
 
-/*
 #pragma mark - Navigation
 
+-(void)onSettings:(id)sender
+{
+    [self performSegueWithIdentifier: kSettingsSegueIdentifier sender: self];
+}
+
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
 
 #pragma mark - Wait dialog
 
@@ -167,7 +173,7 @@ static CGFloat const kItemSpacing = 1.0f;
     hudView.bodyText = @"";
     hudView.hudType = MBAlertViewHUDTypeActivityIndicator;
     hudView.hudHideDelay = 9999.0f;
-    hudView.backgroundColor = [UIColor colorWithWhite: 1.0 alpha: 0.5];
+    hudView.backgroundColor = [UIColor colorWithWhite: 1.0f alpha: 0.5f];
     [hudView addToDisplayQueue];
 }
 
