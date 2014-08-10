@@ -39,19 +39,22 @@
         return;
     }
     
-    [self displayWaitDialog];
+    //[self displayWaitDialog];
     
     __weak PhotoViewController *viewController = self;
+    NSLog(@"%@", self.imageURL);
     
     [self.imageView setImageWithURLRequest: [NSURLRequest requestWithURL: self.imageURL]
                           placeholderImage: nil
                                    success: ^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                        
                                        [viewController dismissWaitDialog];
+                                       [viewController.imageView setImage: image];
                                        
                                    } failure: ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                        
                                        [viewController dismissWaitDialog];
+                                       [viewController.imageView setImage: nil];
                                        
                                        NSLog(@"%@", error);
                                    }];
