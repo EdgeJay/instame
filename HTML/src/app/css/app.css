@@ -1,5 +1,14 @@
 /* app css stylesheet */
 
+body {
+  background-color: #333;
+}
+
+.container-fluid {
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
@@ -27,4 +36,17 @@
 .menu > li:nth-child(1):before {
   content: "";
   padding: 0;
+}
+
+.image-preview {
+  padding: 1px;
+}
+
+.image-preview.ng-enter,
+.image-preview.ng-leave,
+.image-preview.ng-move {
+  -webkit-transition: 0.5s linear all;
+  -moz-transition: 0.5s linear all;
+  -o-transition: 0.5s linear all;
+  transition: 0.5s linear all;
 }
