@@ -105,3 +105,13 @@
 2014-08-21 21:47:33.384 InstaMe[52724:70b] Failed to load webpage with error: Could not connect to the server.
 2014-08-21 21:47:35.984 InstaMe[52724:70b] Resetting plugins due to page load.
 2014-08-21 21:47:36.377 InstaMe[52724:70b] Failed to load webpage with error: Could not connect to the server.
+2014-08-22 10:27:55.027 InstaMe[1312:70b] Multi-tasking -> Device: YES, App: YES
+2014-08-22 10:27:55.053 InstaMe[1312:70b] Unlimited access to network resources
+2014-08-22 10:27:55.212 InstaMe[1312:70b] [CDVTimer][keyboard] 0.054002ms
+2014-08-22 10:27:55.212 InstaMe[1312:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-08-22 10:27:55.212 InstaMe[1312:70b] [CDVTimer][statusbar] 0.472963ms
+2014-08-22 10:27:55.213 InstaMe[1312:70b] [CDVTimer][TotalPluginStartup] 1.371026ms
+2014-08-22 10:27:55.364 InstaMe[1312:70b] Resetting plugins due to page load.
+2014-08-22 10:27:55.619 InstaMe[1312:70b] Finished load of: file:///Users/wuhuijie/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/8852C253-E7D6-4CDA-961F-79ED8A69DC24/InstaMe.app/www/index.html#/login
+2014-08-22 10:28:00.208 InstaMe[1312:70b] Resetting plugins due to page load.
+2014-08-22 10:28:02.538 InstaMe[1312:70b] Failed to load webpage with error: Could not connect to the server.

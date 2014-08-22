@@ -9,21 +9,45 @@ function renderImages($scope, results) {
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-.controller('LoginCtrl', ['$rootScope', '$scope', 'clientId', 'redirectURI', '$window',
-	function($rootScope, $scope, clientId, redirectURI, $window) {
+.controller('LoginCtrl', ['$rootScope', '$scope', 'clientId', 'authURL', 'redirectURI', '$window',
+	function($rootScope, $scope, clientId, authURL, redirectURI, $window) {
 		
-		$window.alert('login!');
-		$window.alert($window.location.href.indexOf('?token='));
-
 		if ($window.location.href.indexOf('?token=') !== -1) {
 			$rootScope.instagramToken = $window.location.href.split('?token=')[1];
 		}
 
 		if ($rootScope.instagramToken) {
-			$window.location = '/#/feed';
+			alert('found existing token: ' + $rootScope.instagramToken);
+			$window.location = '#/feed';
 		}
 		else {
-			$window.location = 'https://api.instagram.com/oauth/authorize/?client_id=' + clientId + '&redirect_uri=' + redirectURI + '&response_type=token';
+			//$window.location = authURL + '?client_id=' + clientId + '&redirect_uri=' + redirectURI + '&response_type=token';
+			var win = window.open(
+				authURL + '?client_id=' + clientId + '&redirect_uri=' + redirectURI + '&response_type=token', 
+				'_blank',
+				'location=no');
+			
+			win.addEventListener('loadstart', function (evt) {
+				
+				var url = evt.url;
+				if (url.indexOf('access_token=') !== -1) {
+
+					var arr = url.split('access_token=');
+					$rootScope.instagramToken = arr[1];
+					//alert($rootScope.instagramToken);
+					win.close();
+
+					$window.location = '#/feed';
+				}
+
+				/*
+				var str = '';
+				for (var k in evt) {
+					str += k + ':' + evt[k] + '\n';
+				}
+				alert(str);
+				*/
+			});
 		}
 	}
 ])
@@ -37,7 +61,7 @@ angular.module('myApp.controllers', [])
 	}
 	else {
 		// No access token found, go back to login
-		$window.location = '/#/login';
+		$window.location = '#/login';
 	}
 }]);
 
@@ -49,5 +73,5 @@ angular.module('myAppToken.controllers', [])
     var arr = hash.split('=');
     var token = arr[1];
 
-	window.location = '/#/login?token=' + token;
+	window.location = '#/login?token=' + token;
 }]);

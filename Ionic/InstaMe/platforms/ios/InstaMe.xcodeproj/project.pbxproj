@@ -42,6 +42,7 @@
 		092C627950C747A9B54057DD /* UIWebViewExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A36D66DB3A488391E0D31B /* UIWebViewExtension.m */; };
 		08AE127E1E774A679F4E29F2 /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 074A1CD03F9F4EC3AAB98666 /* CDVLogger.m */; };
 		40F7ED47953343538B1F8F54 /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EFF659991764B9ABA00E757 /* CDVDevice.m */; };
+		5E65036D8B394E64BE7C363F /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = DE57BE27A48C445B854E6861 /* CDVInAppBrowser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,8 @@
 		83C6F397DE864BD0B1845E46 /* CDVLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVLogger.h"; path = "org.apache.cordova.console/CDVLogger.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		1EFF659991764B9ABA00E757 /* CDVDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVDevice.m"; path = "org.apache.cordova.device/CDVDevice.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		57E6CEDA7AD1412883A9031D /* CDVDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVDevice.h"; path = "org.apache.cordova.device/CDVDevice.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		DE57BE27A48C445B854E6861 /* CDVInAppBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVInAppBrowser.m"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		AA1F00E11E54468D8A1FEF12 /* CDVInAppBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVInAppBrowser.h"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +245,8 @@
 				83C6F397DE864BD0B1845E46 /* CDVLogger.h */,
 				1EFF659991764B9ABA00E757 /* CDVDevice.m */,
 				57E6CEDA7AD1412883A9031D /* CDVDevice.h */,
+				DE57BE27A48C445B854E6861 /* CDVInAppBrowser.m */,
+				AA1F00E11E54468D8A1FEF12 /* CDVInAppBrowser.h */,
 			);
 			name = Plugins;
 			path = "InstaMe/Plugins";
@@ -440,6 +445,7 @@
 				092C627950C747A9B54057DD /* UIWebViewExtension.m in Sources */,
 				08AE127E1E774A679F4E29F2 /* CDVLogger.m in Sources */,
 				40F7ED47953343538B1F8F54 /* CDVDevice.m in Sources */,
+				5E65036D8B394E64BE7C363F /* CDVInAppBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,7 @@
 // In this case it is a simple value service.
 angular.module('myApp.services', ['ngResource'])
 .value('version', '0.1')
+.value('authURL', 'https://api.instagram.com/oauth/authorize/')
 .value('feedUri', 'https://api.instagram.com/v1/users/self/feed')
 .value('clientId', '6275c75255724021ba00e59b410413b2')
 .value('redirectURI', 'http://localhost:8100/token.html')
